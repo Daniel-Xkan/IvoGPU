@@ -26,7 +26,7 @@ import numpy.random
 import pyopencl as cl
 import pyopencl.array as cl_array
 import sys, os, errno, glob, argparse, time
-import ConfigParser
+import configparser
 import seqload
 from scipy.optimize import leastsq
 from changeGauge import zeroGauge, zeroJGauge, fieldlessGaugeEven

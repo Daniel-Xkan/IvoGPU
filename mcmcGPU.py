@@ -75,9 +75,11 @@ def readGPUbufs(bufnames, gpus):
 
 
 class MCMCGPU:
-    def __init__(self, (gpu, gpunum, ctx, prg), (L, nB), outdir, nseq_small, 
+    def __init__(self, gpu_params, L_nB, outdir, nseq_small, 
                  nseq_large, wgsize, vsize, nhist, nMCMCcalls, nsteps=1, 
                  gibbs=False, profile=False):
+        gpu, gpunum, ctx, prg = gpu_params
+        L, nB = L_nB
 
         self.L = L
         self.nB = nB
@@ -582,9 +584,9 @@ def divideWalkers(nwalkers, ngpus, wgsize, log):
     if nwalkers % (ngpus*wgsize) != 0:
         log("Warning: number of MCMC walkers is not a multiple of "
             "wgsize*ngpus, so there are idle work units.")
-    return nwalkers_gpu
 
-def initGPU(devnum, (cl_ctx, cl_prg), device, nwalkers, nlargebuf, param, log):
+def initGPU(devnum, cl_params, device, nwalkers, nlargebuf, param, log):
+    cl_ctx, cl_prg = cl_params
     outdir = param.outdir
     L, nB = param.L, param.nB
     nsteps  = param.nsteps

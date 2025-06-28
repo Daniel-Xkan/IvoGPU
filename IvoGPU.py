@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 #
 #Copyright 2016 Allan Haldane.
 
@@ -19,13 +19,14 @@
 #Contact: allan.haldane _AT_ gmail.com
 from __future__ import print_function
 from scipy import *
-from scipy.misc import logsumexp
+from scipy.special import logsumexp
 import scipy
 import numpy as np
+from numpy import uint32, float32
 from numpy.random import randint
 import pyopencl as cl
 import pyopencl.array as cl_array
-import sys, os, errno, argparse, time, ConfigParser
+import sys, os, errno, argparse, time, configparser
 import seqload
 from changeGauge import zeroGauge, zeroJGauge, fieldlessGaugeEven
 from mcmcGPU import setupGPUs, initGPU, divideWalkers, printGPUs, readGPUbufs
@@ -814,7 +815,7 @@ class CLInfoAction(argparse.Action):
         parser.exit()
 
 def readConfig(fp, section):
-    config = ConfigParser.SafeConfigParser()
+    config = configparser.SafeConfigParser()
     config.readfp(fp)
     sections = config.sections()
     if len(sections) != 1 or sections[0] != section:
